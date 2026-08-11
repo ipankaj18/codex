@@ -147,3 +147,25 @@ const codex = new Codex({
 ```
 
 Thread options still take precedence for overlapping settings because they are emitted after these global overrides.
+
+## LangChain agent with Figma MCP tools
+
+The repository includes a standalone TypeScript sample that connects a LangChain agent to a
+Streamable HTTP Figma MCP server. This sample calls OpenAI through LangChain and does not use the
+Codex SDK's CLI-backed agent.
+
+```bash
+export OPENAI_API_KEY="..."
+export FIGMA_MCP_URL="https://your-figma-mcp-server.example/mcp"
+
+# Optional when the MCP server requires a static bearer token:
+export FIGMA_MCP_TOKEN="..."
+
+# Optional; defaults to gpt-5.1:
+export OPENAI_MODEL="gpt-5.1"
+
+pnpm sample:figma-mcp-agent -- "Describe the selected Figma frame"
+```
+
+The agent discovers the MCP server's tools when it starts and closes the HTTP MCP connection when
+the invocation finishes.
