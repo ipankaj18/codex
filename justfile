@@ -17,6 +17,14 @@ alias c := codex
 codex *args:
     cargo run --bin codex -- {args}
 
+# Build the CLI as p-codex and install it in the user's local bin directory.
+[unix]
+build-p-codex:
+    cargo build --release -p codex-cli --bin codex
+    cp target/release/codex target/release/p-codex
+    mkdir -p "$HOME/.local/bin"
+    install -m 755 target/release/p-codex "$HOME/.local/bin/p-codex"
+
 # `codex exec`
 exec *args:
     cargo run --bin codex -- exec {args}
